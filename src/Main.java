@@ -1,7 +1,4 @@
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
 public class Main {
 
@@ -23,15 +20,8 @@ public class Main {
             System.out.println(nums1[i]);
         }
 */
-        String s = "bab";
-        List<String> d = new ArrayList<>();
-        d.add("ba");
-        d.add("ab");
-        d.add("a");
-        d.add("b");
-        System.out.println(ShuangZhiZhen.longSon(s,d));
-
-
+        int[][] g = {{0,2},{1,3},{2,4},{3,5},{4,6}};
+        System.out.println(TanXin.eraseOverlapIntervals(g));
 
 
     }
