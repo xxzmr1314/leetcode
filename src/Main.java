@@ -20,9 +20,7 @@ public class Main {
             System.out.println(nums1[i]);
         }
 */
-        int[][] g = {{0,2},{1,3},{2,4},{3,5},{4,6}};
-        System.out.println(TanXin.eraseOverlapIntervals(g));
-
-
+        int[] test = {65,56,72,99,86,25,34,66};
+        Sort.QuickSort(test,0,test.length-1);
     }
 }

@@ -54,6 +54,23 @@ public class Sort {
     }
 
     /**
+     * 选择排序
+     * @param arry
+     */
+    public static void SelectionSort(int[] arry){
+        for (int i = 0; i < arry.length-1; i++) {
+            for (int j = i+1; j < arry.length; j++) {
+                if (arry[j]<arry[i]){
+                    //如果发现后面的数比较小。就交换
+                    int temp = arry[i];
+                    arry[i] = arry[j];
+                    arry[j] = temp;
+                }
+            }
+        }
+    }
+
+    /**
      * 归并排序，待写
      * @param arry
      * @param start
