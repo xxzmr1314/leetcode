@@ -64,4 +64,81 @@ public class TanXin {
         return count;
     }
 
+
+    /**
+     * 425、用最少的数量引爆气球
+     * @param points
+     * @return
+     */
+    public static int findMinArrowShots(int[][] points) {
+        if (points.length<2){
+            return points.length;
+        } else{
+           //先对数组进行排序,根据起点来排
+            Arrays.sort(points,(p1,p2)-> p1[0]-p2[0]);
+            int num = 1;
+            int end = points[0][1];//设置一个最远标志位，先赋值第一个区间的终点
+            for (int i = 1; i < points.length; i++) {
+               if (points[i][0]<=end){
+                   end = Math.min(end,points[i][1]);
+               }else{
+                   num++;
+                   end = points[i][1];
+               }
+            }
+            return num;
+        }
+
+    }
+
+    /**
+     * 406、根据身高重建队列
+     * 解法：先将队列按身高降序以及前面人数升序排列，然后再一个个插入
+     */
+    public static int[][] reconstructQueue(int[][] people) {
+        Arrays.sort(people, (o1, o2) -> o1[0] == o2[0] ? o1[1] - o2[1] : o2[0] - o1[0]);
+        LinkedList<int[]> list = new LinkedList<>();
+        for (int[] i:people) {
+            list.add(i[1],i);
+        }
+        return list.toArray(new int[list.size()][2]);//将list转换成数组
+    }
+
+    /**
+     * 121、买卖股票的最佳时机
+     * 本题的核心思想是，从后往前遍历，因为利润就是用后面的数-前面的数，然后尽量找到最大的数，因为用后面的最大的数来-前面的数才有可能得到最大利润
+     * 在循环过程中，如果遇到比当前最大数更大的数就替换，如果遇到比当前最大利润更大的数也替换
+     */
+    public static int maxProfit(int[] prices) {
+        int max = 0;
+        int profit = 0;
+        for(int i = prices.length-1;i>=0;i--){//从后往前遍历
+            if (prices[i]>max){
+                max = prices[i];//遇到比最大值更大的数就赋值
+            }
+            if ((max - prices[i])>profit){
+                profit = max - prices[i];
+            }
+        }
+        return profit;
+    }
+
+    /**
+     * 122、买卖股票的最佳时机2
+     * 尽可能多买卖就可以了
+     */
+    public static int maxProfit2(int[] prices) {
+        int profit = 0;
+        for (int i = prices.length-1;i>=1;i--){
+            if (prices[i]>prices[i-1]){
+                profit+=prices[i]-prices[i-1];
+            }
+        }
+        return profit;
+    }
+
+    /**
+     * 605、种植花朵
+     */
+
 }
