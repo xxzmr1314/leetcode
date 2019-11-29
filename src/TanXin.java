@@ -139,6 +139,76 @@ public class TanXin {
 
     /**
      * 605、种植花朵
+     * 循环，对每个坑判断是否能种,就是判断其两侧的是否种了，首先要把小于三个坑的特殊情况排除，其次要把头尾两个坑单独计算，因为它们只用和旁边一个坑比较即可。
      */
+    public static boolean canPlaceFlowers(int[] flowerbed, int n) {
+        int nums=0;
+        if (flowerbed.length<3){
+            if (flowerbed.length==1){
+                if (flowerbed[0]==0){
+                    return 1>=n;
+                }else{
+                    return 0>=n;
+                }
+            }else if (flowerbed.length==2){
+                if (flowerbed[0]==0&&flowerbed[1]==0){
+                    return 1>=n;
+                }else{
+                    return 0>=n;
+                }
+            }
+        }
+        //头尾单独计算
+        if (flowerbed[0]==0&&flowerbed[0]==flowerbed[1]){
+            nums++;
+            flowerbed[0]=1;
+        }
+        if (flowerbed[flowerbed.length-1]==0&&flowerbed[flowerbed.length-1]==flowerbed[flowerbed.length-2]){
+            nums++;
+            flowerbed[flowerbed.length-1]=1;
+        }
+        for (int i = 1; i < flowerbed.length-1 ; i++) {
 
+           if(flowerbed[i]==0&&flowerbed[i-1]==0&&flowerbed[i+1]==0){
+               nums++;
+               i++;
+           }
+        }
+        return nums>=n;
+    }
+
+
+    /**
+     * 判断是否为子串：给定字符串 s 和 t ，判断 s 是否为 t 的子串
+     */
+    public static boolean isSubsequence(String s, String t) {
+        boolean flag =false;
+        int slength=s.length();
+        int tlength=t.length();
+        if (slength>tlength){
+            //如果s的长度大于t，直接返回false
+            return false;
+        }
+        if (slength==tlength){
+            //如果两者长度相等，直接比较两者是否相同
+            return s.equals(t);
+        }
+        for (int i = 0;i<t.length()-s.length()+1;i++){
+            if (t.charAt(i)==s.charAt(0)){
+                int index =0;
+                while(t.charAt(i+index)==s.charAt(index)){
+                    index++;
+                }
+                if (index==s.length()){
+                    flag=true;
+                    break;
+                }
+            }
+        }
+        return flag;
+    }
+
+    /**
+     * 392、判断是否为子序列
+     */
 }

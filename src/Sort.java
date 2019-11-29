@@ -19,6 +19,121 @@ public class Sort {
     }
 
     /**
+     * 直接插入排序 O(n^2)
+     * 每次循环都保证前面的序列是有序的，新的数进来就和前面的有序序列比较，找到自己最适合的位置插进去。
+     * 第一种是通过交换两个数的位置来找到合适的位置插入
+     */
+    public static void InsertSort1(int[] nums){
+        for (int i = 0; i < nums.length-1 ; i++) {
+            for (int j = i+1; j >0 ; j--) {
+                if (nums[j]<nums[j-1]){
+                    int temp = nums[j];
+                    nums[j] = nums[j-1];
+                    nums[j-1]=temp;
+                }
+            }
+        }
+    }
+    /**
+     * 第二种是通过将比目标插入值大的数统统往右移动的方式
+     */
+    public static void InsertSort2(int[] nums){
+        for (int i = 1; i < nums.length; i++) {
+            int num = nums[i];
+            int j ;
+            for (j = i; j>0&&nums[j-1]>num ; j--) {
+                nums[j] = nums[j-1];
+            }
+            nums[j] = num;
+        }
+
+    }
+
+    /**
+     * 折半插入排序
+     */
+    public static void BinaryInsertSort(int[] arr){
+        int low,high,m,temp;
+        for(int i = 1;i<arr.length;i++){
+            //折半查找应该插入的位置
+            low = 0;
+            high = i-1;
+            while(low <= high){
+                m = (low+high)/2;
+                if(arr[m] > arr[i])
+                    high = m - 1;
+                else
+                    low = m + 1;
+            }
+            //统一移动元素，然后将这个元素插入到正确的位置，因为找到了插入的区域，所以那个区域往右的值都要向右挪一位
+            temp = arr[i];
+            for(int j=i;j>high+1;j--){
+                arr[j] = arr[j-1];
+            }
+            arr[high+1] = temp;
+        }
+    }
+
+
+    /**
+     * 希尔排序 O(n)至O(n^2)
+     */
+    static void InsertSort_gap(int[] nums,int start,int gap){
+        for (int i = start+gap;i<nums.length;i=i+gap){
+            int num = nums[i];
+            int j ;
+            for (j = i; j > gap&&nums[j-gap]>num ; j=j-gap) {
+                nums[j] = nums[j-gap];
+            }
+            nums[j] = num;
+        }
+    }
+    static void shellSort(int[] nums,int gaps[],int m){
+        int gap;
+        for (int i=m-1;i>=0;i--){
+            gap = gaps[i];
+            for (int start = 0;start<gap;start++){
+                InsertSort_gap(nums,start,gap);
+            }
+        }
+    }
+
+
+    /**
+     * 简单选择排序  O(n^2)
+     * 每次找出最小的放在前面就可以了
+     */
+    public static void SelectSort(int[] nums){
+        for (int i = 0; i < nums.length ; i++) {
+            for (int j = i;j<nums.length;j++){
+                if (nums[i]>nums[j]){
+                    nums[i] = nums[j];
+                }
+            }
+        }
+    }
+
+    /**
+     * 手写二分查找
+     */
+    public static int BinarySearch(int[] nums,int target){
+        int l=0,r = nums.length-1;//在[l.....r]范围内查找target
+        while(l<=r){
+            int mid = l+(r-l)/2;//避免整形溢出，用左边加上两者中间的一般
+            if (nums[mid]==target) return mid;
+            if (nums[mid]>target){
+                r = mid - 1;
+            }else{
+                l = mid +1;
+            }
+        }
+        return -1;
+    }
+
+
+
+    /**
+     * O(nlogn)
      * 手写快速排序：快速排序的原理其实就是找基准点，使得基准点左边的所有数字都<=它，右边的都>=它,然后递归执行
      * @param nums
      * @return
@@ -71,7 +186,7 @@ public class Sort {
     }
 
     /**
-     * 归并排序，待写
+     * 归并排序，O(nlogn)
      * @param arry
      * @param start
      * @param end
@@ -143,6 +258,23 @@ public class Sort {
             max--;
         }
         return sb.toString();
+    }
+
+
+    /**
+     * 283、移动零元素
+     * @param nums
+     */
+    public void moveZeroes(int[] nums) {
+        int notNullIndex = 0;
+        for(int i = 0;i<nums.length;i++){
+            if(nums[i]!=0){
+                nums[notNullIndex++] = nums[i];
+            }
+        }
+        for(int j = notNullIndex; j<nums.length;j++){
+            nums[j] = 0 ;
+        }
     }
 
 
